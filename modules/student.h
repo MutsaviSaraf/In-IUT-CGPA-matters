@@ -15,5 +15,6 @@ typedef struct Student
 Student createStudent(char id[], char name[]);
 void addCourseResultToStudent(Student *student, CourseResult result);
 void viewStudent(Student student);
+void sortStudentsByCGPA(Student students[], int n_students);
 
 #endif
