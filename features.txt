@@ -1,4 +1,4 @@
-001 - Prepare course module [Dependency: None]
+
 002 - Prepare course results module [Dependency: 001]
 003 - Add CGPA calculator [Dependency: 002]
 004 - Enable Incomplete Courses [Dependency: 003]
