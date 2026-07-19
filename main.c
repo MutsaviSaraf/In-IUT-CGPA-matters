@@ -3,20 +3,20 @@
 
 int main()
 {
-    double current_cgpa, completed_credits, target_cgpa, remaining_credits;
+    double current_cgpa, completed_credits, expected_gpa, future_credits;
 
     printf("Current CGPA: ");
     scanf("%lf", &current_cgpa);
     printf("Completed credits: ");
     scanf("%lf", &completed_credits);
-    printf("Target CGPA: ");
-    scanf("%lf", &target_cgpa);
-    printf("Remaining credits: ");
-    scanf("%lf", &remaining_credits);
+    printf("Expected future GPA: ");
+    scanf("%lf", &expected_gpa);
+    printf("Future credits: ");
+    scanf("%lf", &future_credits);
 
-    printf("Required GPA: %.2f\n",
-           calculateRequiredGPA(current_cgpa, completed_credits,
-                                target_cgpa, remaining_credits));
+    printf("Expected CGPA: %.2f\n",
+           calculateExpectedCGPA(current_cgpa, completed_credits,
+                                 expected_gpa, future_credits));
 
     return 0;
 }

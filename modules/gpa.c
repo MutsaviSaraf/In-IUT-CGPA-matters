@@ -55,13 +55,11 @@ double calculateGPA(CourseResult results[], int n_results)
     return weighted_points / total_credits;
 }
 
-double calculateRequiredGPA(double current_cgpa, double completed_credits,
-                            double target_cgpa, double remaining_credits)
+double calculateExpectedCGPA(double current_cgpa, double completed_credits,
+                             double expected_gpa, double future_credits)
 {
-    double total_credits = completed_credits + remaining_credits;
-    double target_points = target_cgpa * total_credits;
-    double current_points = current_cgpa * completed_credits;
-
-    if (remaining_credits <= 0.0) return 0.0;
-    return (target_points - current_points) / remaining_credits;
+    double total_credits = completed_credits + future_credits;
+    if (total_credits <= 0.0) return 0.0;
+    return ((current_cgpa * completed_credits) +
+            (expected_gpa * future_credits)) / total_credits;
 }
