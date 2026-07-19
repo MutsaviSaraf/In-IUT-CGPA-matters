@@ -15,10 +15,22 @@ int main()
 
     for (int i = 0; i < n_courses; i++)
     {
+        int choice;
+        printf("%s: Is Completed?\n", courses[i].name);
+        printf("1. YES\n");
+        printf("2. NO\n");
+        printf("Enter Choice: ");
+        scanf("%d", &choice);
+        if (choice == 2)
+        {
+            results[i] = createIncompleteCourseResult(&courses[i]);
+            continue;
+        }
+
         double marks;
         printf("Marks for %s: ", courses[i].name);
         scanf("%lf", &marks);
-        results[i] = createCourseResult(&courses[i], marks);
+        results[i] = createCompletedCourseResult(&courses[i], marks);
     }
 
     printf("\nResults\n");
