@@ -26,3 +26,19 @@ void viewStudent(Student student)
     printf("Name: %s\n", student.name);
     printf("CGPA: %.2f\n", student.cgpa);
 }
+
+void sortStudentsByCGPA(Student students[], int n_students)
+{
+    for (int i = 0; i < n_students; i++)
+    {
+        for (int j = i + 1; j < n_students; j++)
+        {
+            if (students[j].cgpa > students[i].cgpa)
+            {
+                Student temp = students[i];
+                students[i] = students[j];
+                students[j] = temp;
+            }
+        }
+    }
+}
