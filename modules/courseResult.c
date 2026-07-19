@@ -4,12 +4,23 @@
 
 Course nullCourse = {"NULL", "NULL", 0.0, 0};
 
-CourseResult createCourseResult(Course *course, double marks)
+CourseResult createCourseResult(Course *course, double marks, int completed)
 {
     CourseResult result;
     result.course = course;
     result.marks = marks;
+    result.completed = completed;
     return result;
+}
+
+CourseResult createCompletedCourseResult(Course *course, double marks)
+{
+    return createCourseResult(course, marks, 1);
+}
+
+CourseResult createIncompleteCourseResult(Course *course)
+{
+    return createCourseResult(course, 0.0, 0);
 }
 
 void sortCourseResultsBySemester(CourseResult results[], int n_results)
@@ -78,7 +89,7 @@ void filterCourseResultsBySemester(CourseResult results[], int n_results, int se
         count++;
     }
 
-    filtered[count] = createCourseResult(&nullCourse, 0.0);
+    filtered[count] = createCourseResult(&nullCourse, 0.0, 0);
 }
 
 int countCourseResultsBeforeNull(CourseResult results[], int n_results)
