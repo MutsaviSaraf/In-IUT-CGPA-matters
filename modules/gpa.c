@@ -1,11 +1,9 @@
-#include <string.h>
 #include "gpa.h"
 
 const double gradeBoundaries[] = {80, 75, 70, 65, 60, 55, 50, 45, 40};
 const double gradePoints[] = {4.00, 3.75, 3.50, 3.25, 3.00, 2.75, 2.50, 2.25, 2.00};
 const char *gradeLetters[] = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "D"};
 
-// Defined first so other functions recognize it
 double getPercentage(CourseResult result)
 {
     double full_marks = result.course->credit * 100.0;
@@ -15,27 +13,29 @@ double getPercentage(CourseResult result)
 
 double getGradePoint(CourseResult result)
 {
-    // Using your null_course_code logic instead of .completed
-    if (strcmp(result.course->code, null_course_code) == 0) return 0.0;
-
     double percentage = getPercentage(result);
+
+    if (!result.completed) return 0.0;
+
     for (int i = 0; i < 9; i++)
     {
         if (percentage >= gradeBoundaries[i]) return gradePoints[i];
     }
+
     return 0.0;
 }
 
 char *getLetterGrade(CourseResult result)
 {
-    // Using your null_course_code logic instead of .completed
-    if (strcmp(result.course->code, null_course_code) == 0) return "I";
-
     double percentage = getPercentage(result);
+
+    if (!result.completed) return "I";
+
     for (int i = 0; i < 9; i++)
     {
         if (percentage >= gradeBoundaries[i]) return (char *) gradeLetters[i];
     }
+
     return "F";
 }
 
@@ -46,13 +46,22 @@ double calculateGPA(CourseResult results[], int n_results)
 
     for (int i = 0; i < n_results; i++)
     {
-        // Using your null_course_code logic instead of .completed
-        if (strcmp(results[i].course->code, null_course_code) == 0) continue;
-        
+        if (!results[i].completed) continue;
         weighted_points += getGradePoint(results[i]) * results[i].course->credit;
         total_credits += results[i].course->credit;
     }
 
     if (total_credits == 0.0) return 0.0;
     return weighted_points / total_credits;
+}
+
+double calculateRequiredGPA(double current_cgpa, double completed_credits,
+                            double target_cgpa, double remaining_credits)
+{
+    double total_credits = completed_credits + remaining_credits;
+    double target_points = target_cgpa * total_credits;
+    double current_points = current_cgpa * completed_credits;
+
+    if (remaining_credits <= 0.0) return 0.0;
+    return (target_points - current_points) / remaining_credits;
 }
